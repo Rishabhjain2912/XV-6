@@ -1,0 +1,42 @@
+Specification 1
+implementation of strace
+* added the syscall name to makefile- $U/_strace
+* wrote a sys_trace function in sysproc.c
+* added a new variable mask in proc structure in proc.h
+* added the sys_trace function in defs.h
+* Modified fork() in proc.c to copy the trace mask from the parent to the child process.
+* gave SYS_trace a number(22) in syscall.h
+* modified syscall function in syscall.c to print the output of trace.
+* added a strace.c program in user and added prototype in user.h and added stub in usys.pl
+
+Specification 2
+a. FCFS
+* added int mask in struct proc in proc.h
+* edited allocproc() in proc.c to include p->mask=0;
+* added macro in makefile to chosse which scheduler to run.
+* added fcfs infinite for loop to proc.c and if defined statements for roundrobin and fcfs in scheduler() function in proc.c.
+* edited kerneltrap() in trap.c to disable the preemption of the process after the clock interrupts.
+
+b. PBS
+* added int rtime,etime,ctime,stime in struct proc in proc.h
+* added a new syscall set_priority and followed same steps as for strace syscall.
+* updated allocproc in proc.c to include rtime,ctime,stime.
+* added infinte for loop for PBS in scheduler() function in proc.c.
+* added function set_priority in proc.c.
+* updated defs.h.
+* added a program setpriority.c to users.
+* updated user.h and usys.pl.
+
+Specification 3
+* Since i was not able to complete MLFQ i updated procdump() to show the extra stats for PBS.
+
+ans for the question in spec 2 MLFQ
+If a process voluntarily relinquishes control of the CPU(eg. For doing I/O), it
+leaves the queuing network, and when the process becomes ready again
+after the I/O, it is   inserted at the tail of the same queue, from which it is
+relinquished earlier. This helps in saving the processes from starvation. Also it helps in saving the processor time.
+
+
+
+I didnt have the benchmark so couldnt tabulate the performances of
+the scheduling algorithms using the given benchmark program.
